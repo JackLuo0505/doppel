@@ -1,0 +1,46 @@
+import json
+
+# 示例输入数据
+current_data = [
+    {
+        "instruction": "哈哈\n我们这冷的要死",
+        "input": "",
+        "output": "周子健好像找到了\n新女友"
+    },
+    {
+        "instruction": "像洗钱？\n为啥嘞？",
+        "input": "",
+        "output": "我左手倒右手又转出去\n这不是洗钱是什么"
+    }
+]
+
+# 转换为目标数据格式
+def convert_data_format(current_data):
+    target_data = []
+    for entry in current_data:
+        messages = [
+            {"role": "system", "content": "你是一个乐于助人且知识渊博的AI助手。"},
+            {"role": "user", "content": entry["instruction"]},
+            {"role": "assistant", "content": entry["output"]}
+        ]
+        target_data.append({"messages": messages})
+    return target_data
+
+# 转换数据
+converted_data = convert_data_format(current_data)
+
+# 将转换后的数据转换为JSON字符串，并打印输出
+converted_data_json = json.dumps(converted_data, ensure_ascii=False, indent=2)
+print(converted_data_json)
+
+# 输出结果示例
+# [
+#   {
+#     "messages": [
+#       {"role": "system", "content": "你是一个乐于助人且知识渊博的AI助手。"},
+#       {"role": "user", "content": "哈哈\n我们这冷的要死"},
+#       {"role": "assistant", "content": "周子健好像找到了\n新女友"}
+#     ]
+#   },
+#   ...
+# ]
